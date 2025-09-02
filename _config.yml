@@ -1,5 +1,42 @@
+title: Aditya Pratap Singh | Bot Developer Portfolio
+description: Professional freelance bot developer specializing in JavaScript, Node.js, and Python. Creator of SnowBot, FAB, TipBot, FUB, and more innovative automation solutions.
+author: Aditya Pratap Singh
+email: adityapratap8634@gmail.com
+baseurl: ""
+url: "https://adixxhighrise.github.io"
+
+# Theme settings
 remote_theme: pages-themes/architect@v0.2.0
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
-title: Aditya Pratap Singh
-description: Freelance bot developer skilled in JavaScript, Node.js, and Python — creator of SnowBot, FAB, TipBot, FUB, and more.
+  - jekyll-remote-theme
+
+# SEO and social settings
+github_username: Adixxhighrise
+linkedin_username: # Add if you have LinkedIn
+twitter_username: # Add if you have Twitter
+
+# Portfolio specific settings
+portfolio:
+  total_revenue: "₹84,671"
+  completed_projects: 9
+  ongoing_projects: 3
+  primary_skills: ["JavaScript", "Node.js", "Python", "Bot Development"]
+
+# Google Analytics (optional)
+# google_analytics: YOUR_GA_TRACKING_ID
+
+# Additional settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+timezone: Asia/Kolkata
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
