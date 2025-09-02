@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Pratap Singh - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 50px 50px;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 80px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .tech-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px;
+            margin-bottom: 80px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .about p {
+            font-size: 1.2em;
+            text-align: center;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Cost Chart Section */
+        .cost-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .cost-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .donut-chart {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+            cursor: pointer;
+        }
+
+        .chart-segment {
+            transition: all 0.3s ease;
+            stroke-width: 60;
+            fill: none;
+            cursor: pointer;
+        }
+
+        .chart-segment:hover {
+            stroke-width: 70;
+            filter: brightness(1.2);
+        }
+
+        .chart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .total-amount {
+            font-size: 3em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .total-label {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 10px;
+        }
+
+        .project-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .project-info.active {
+            opacity: 1;
+        }
+
+        .project-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .project-cost {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 80px 0;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .projects h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4CAF50;
+        }
+
+        .status-ongoing {
+            background: rgba(255, 193, 7, 0.3);
+            border: 1px solid #FFC107;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 80px 0;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-stack h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .tech-category h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        .tech-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .contact h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .quote {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .chart-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .about, .projects, .tech-stack {
+                padding: 40px 20px;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="profile-photo">
+            <img src="assets/images/IMG_2577.jpg" alt="Aditya Pratap Singh">
+        </div>
+            <h1>Aditya Pratap Singh</h1>
+            <p class="subtitle">🚀 Freelance Bot Developer | Open Source Contributor</p>
+            <!-- <div class="tech-badges">
+                <span class="badge">JavaScript</span>
+                <span class="badge">Node.js</span>
+                <span class="badge">Python</span>
+                <span class="badge">Open Source</span>
+            </div> -->
+        </header>
+
+        <!-- About Section -->
+        <section class="about">
+            <h2>🧑‍💻 About Me</h2>
+            <p>I'm <strong>Aditya Pratap Singh</strong>, a passionate <strong>freelance developer</strong> who specializes in building advanced <strong>bots</strong> and automation tools. I work with <strong>JavaScript</strong>, <strong>Node.js</strong>, and <strong>Python</strong>, crafting innovative solutions for different platforms. I enjoy experimenting with APIs, SDKs, and streaming integrations to deliver powerful, optimized bots.</p>
+        </section>
+
+        <!-- Cost Chart Section -->
+        <section class="cost-section">
+            <h2>💰 Project Revenue Overview</h2>
+            <div class="chart-container">
+                <svg class="donut-chart" viewBox="0 0 200 200">
+                    <!-- SnowBot & SnowBotV2: ₹37,777.36 (44.6%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70" 
+                            stroke="#4CAF50" stroke-dasharray="196.3 243.7"
+                            stroke-dashoffset="0"
+                            data-project="SnowBot & SnowBotV2" data-cost="₹37,777.36" />
+                    
+                    <!-- Ghost Radio: ₹11,928.18 (14.1%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70"
+                            stroke="#9C27B0" stroke-dasharray="62.0 378.0"
+                            stroke-dashoffset="-196.3"
+                            data-project="Ghost Radio" data-cost="₹11,928.18" />
+                    
+                    <!-- LinkUp + TipBot: ₹11,931.04 (14.1%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70"
+                            stroke="#E91E63" stroke-dasharray="62.1 377.9"
+                            stroke-dashoffset="-258.3"
+                            data-project="LinkUp + TipBot" data-cost="₹11,931.04" />
+                    
+                    <!-- FUB (All Parts): ₹11,213.38 (13.2%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70"
+                            stroke="#FF9800" stroke-dasharray="58.1 381.9"
+                            stroke-dashoffset="-320.4"
+                            data-project="FUB (All Parts)" data-cost="₹11,213.38" />
+                    
+                    <!-- FAB & FAB Upgrade: ₹5,516.32 (6.5%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70"
+                            stroke="#2196F3" stroke-dasharray="28.6 411.4"
+                            stroke-dashoffset="-378.5"
+                            data-project="FAB & FAB Upgrade" data-cost="₹5,516.32" />
+                    
+                    <!-- Lightly Music Bot: ₹3,270.51 (3.9%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70"
+                            stroke="#795548" stroke-dasharray="17.0 423.0"
+                            stroke-dashoffset="-407.1"
+                            data-project="Lightly Music Bot" data-cost="₹3,270.51" />
+                    
+                    <!-- JonahGaming: ₹3,034.77 (3.6%) -->
+                    <circle class="chart-segment" cx="100" cy="100" r="70"
+                            stroke="#00BCD4" stroke-dasharray="15.8 424.2"
+                            stroke-dashoffset="-424.1"
+                            data-project="JonahGaming" data-cost="₹3,034.77" />
+                </svg>
+                
+                <div class="chart-center" id="defaultInfo">
+                    <div class="total-amount">₹84,671.56</div>
+                    <div class="total-label">Total Revenue</div>
+                </div>
+                
+                <div class="project-info" id="projectInfo">
+                    <div class="project-name" id="projectName"></div>
+                    <div class="project-cost" id="projectCost"></div>
+                </div>
+            </div>
+            
+            <!-- <div class="legend">
+                <div class="legend-item" data-project="SnowBot & SnowBotV2" data-cost="₹37,777.36">
+                    <div class="legend-color" style="background-color: #4CAF50;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">SnowBot & SnowBotV2</div>
+                        <div class="legend-cost">₹37,777.36 (44.6%)</div>
+                    </div>
+                </div>
+                
+                <div class="legend-item" data-project="Ghost Radio" data-cost="₹11,928.18">
+                    <div class="legend-color" style="background-color: #9C27B0;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">Ghost Radio</div>
+                        <div class="legend-cost">₹11,928.18 (14.1%)</div>
+                    </div>
+                </div>
+                
+                <div class="legend-item" data-project="LinkUp + TipBot" data-cost="₹11,931.04">
+                    <div class="legend-color" style="background-color: #E91E63;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">LinkUp + TipBot</div>
+                        <div class="legend-cost">₹11,931.04 (14.1%)</div>
+                    </div>
+                </div>
+                
+                <div class="legend-item" data-project="FUB (All Parts)" data-cost="₹11,213.38">
+                    <div class="legend-color" style="background-color: #FF9800;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">FUB (All Parts)</div>
+                        <div class="legend-cost">₹11,213.38 (13.2%)</div>
+                    </div>
+                </div>
+                
+                <div class="legend-item" data-project="FAB & FAB Upgrade" data-cost="₹5,516.32">
+                    <div class="legend-color" style="background-color: #2196F3;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">FAB & FAB Upgrade</div>
+                        <div class="legend-cost">₹5,516.32 (6.5%)</div>
+                    </div>
+                </div>
+                
+                <div class="legend-item" data-project="Lightly Music Bot" data-cost="₹3,270.51">
+                    <div class="legend-color" style="background-color: #795548;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">Lightly Music Bot</div>
+                        <div class="legend-cost">₹3,270.51 (3.9%)</div>
+                    </div>
+                </div>
+                
+                <div class="legend-item" data-project="JonahGaming" data-cost="₹3,034.77">
+                    <div class="legend-color" style="background-color: #00BCD4;"></div>
+                    <div class="legend-text">
+                        <div class="legend-name">JonahGaming</div>
+                        <div class="legend-cost">₹3,034.77 (3.6%)</div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Projects Section -->
+        <section class="projects">
+            <h2>🚀 Projects</h2>
+            <h3 style="margin-bottom: 30px; color: #667eea;">Completed Projects</h3>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-status status-completed">✅ Completed</div>
+                    <h3>SnowBot & SnowBotV2</h3>
+                    <p>Highrise automation & chat bot with optimized performance and advanced features. Enhanced version with improved functionality and user experience.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-completed">✅ Completed</div>
+                    <h3>FAB & FAB Upgrade</h3>
+                    <p>Advanced bot for room control with enhanced version featuring better performance. Comprehensive room management and administrative capabilities.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-completed">✅ Completed</div>
+                    <h3>Lightly Music Bot</h3>
+                    <p>Advanced music streaming bot with high-quality audio processing. Multi-platform support with enhanced user experience.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-completed">✅ Completed</div>
+                    <h3>JonahGaming</h3>
+                    <p>Gaming-integrated music bot with advanced streaming capabilities. Multi-platform support with high-quality audio processing.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-completed">✅ Completed</div>
+                    <h3>LinkUp + TipBot</h3>
+                    <p>Combined room management bot with tipping system. Comprehensive administrative features with automated reward distribution.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-completed">✅ Completed</div>
+                    <h3>FUB (All Parts)</h3>
+                    <p>Multipurpose Highrise bot with versatile functionality. Comprehensive automation and user interaction capabilities delivered in multiple phases.</p>
+                </div>
+            </div>
+
+            <h3 style="margin: 50px 0 30px 0; color: #667eea;">Ongoing Projects</h3>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-status status-ongoing">🔄 In Progress</div>
+                    <h3>Ghost Radio</h3>
+                    <p>YouTube + Spotify music streaming via Icecast Server with advanced audio processing. High-quality streaming with multiple platform integration.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-ongoing">🔄 In Progress</div>
+                    <h3>7si Bot</h3>
+                    <p>Next-gen automation bot with cutting-edge features and AI integration. Advanced machine learning capabilities for enhanced user experience.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-status status-ongoing">🔄 In Progress</div>
+                    <h3>FUB 2.0</h3>
+                    <p>Advanced upgrade of FUB with better performance and new capabilities. Enhanced AI integration and improved user interface.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Tech Stack Section -->
+        <section class="tech-stack">
+            <h2>🛠 Tech Stack & Libraries</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h3>Languages & Frameworks</h3>
+                    <ul class="tech-list">
+                        <li><strong>JavaScript (Node.js)</strong> - Primary backend language</li>
+                        <li><strong>Python</strong> - Automation and data processing</li>
+                        <li><strong>REST APIs & WebSocket</strong> - Real-time integrations</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h3>Key Libraries</h3>
+                    <ul class="tech-list">
+                        <li><strong>yt-dlp</strong> - High-quality audio/video downloading</li>
+                        <li><strong>ytdl-core</strong> - YouTube video/audio streaming</li>
+                        <li><strong>highrise-sdk-adi</strong> - Custom modified Highrise SDK</li>
+                        <li><strong>YouTube.js</strong> - YouTube data fetching</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact">
+            <h2>📬 Connect With Me</h2>
+            <div class="contact-links">
+                <a href="https://github.com/Adixxhighrise" class="contact-link" target="_blank">
+                    GitHub
+                </a>
+                <a href="mailto:adityapratap8634@gmail.com" class="contact-link">
+                    Email
+                </a>
+            </div>
+            <div class="quote">
+                "Building smarter bots, one line of code at a time."
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Interactive donut chart functionality
+        const segments = document.querySelectorAll('.chart-segment');
+        const defaultInfo = document.getElementById('defaultInfo');
+        const projectInfo = document.getElementById('projectInfo');
+        const projectName = document.getElementById('projectName');
+        const projectCost = document.getElementById('projectCost');
+
+        segments.forEach(segment => {
+            segment.addEventListener('mouseenter', () => {
+                const project = segment.getAttribute('data-project');
+                const cost = segment.getAttribute('data-cost');
+                
+                projectName.textContent = project;
+                projectCost.textContent = cost;
+                
+                defaultInfo.style.opacity = '0';
+                projectInfo.classList.add('active');
+            });
+
+            segment.addEventListener('mouseleave', () => {
+                defaultInfo.style.opacity = '1';
+                projectInfo.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling animation on load
+        window.addEventListener('load', () => {
+            document.body.style.animation = 'fadeInUp 1s ease';
+        });
+    </script>
+</body>
+</html>
